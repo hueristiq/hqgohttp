@@ -1,6 +1,7 @@
 # Go(Golang) Options
 GOCMD=go
 GOMOD=$(GOCMD) mod
+GOGET=$(GOCMD) get
 GOFMT=$(GOCMD) fmt
 GOTEST=$(GOCMD) test
 GOFLAGS := -v 
@@ -18,6 +19,11 @@ endif
 tidy:
 	$(GOMOD) tidy
 
+.PHONY: update-deps
+update-deps:
+	$(GOGET) -f -t -u ./...
+	$(GOGET) -f -u ./...
+
 .PHONY: format
 format:
 	$(GOFMT) ./...
@@ -25,10 +31,6 @@ format:
 .PHONY: lint
 lint:
 	$(GOLANGCILINTRUN) ./...
-
-.PHONY: lint-fix
-lint-fix:
-	$(GOLANGCILINTRUN) --fix ./...
 
 .PHONY: test
 test:

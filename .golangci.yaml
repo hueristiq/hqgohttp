@@ -54,8 +54,6 @@ linters-settings:
             - octalLiteral
     govet:
         check-shadowing: true
-        enable:
-            - fieldalignment
     nolintlint:
         require-explanation: true
         require-specific: true
