@@ -99,7 +99,7 @@ type ResponseLogHook func(*http.Response)
 // attempted. If overriding this, be sure to close the body if needed.
 type ErrorHandler func(resp *http.Response, err error, numTries int) (*http.Response, error)
 
-// FromRequest wraps an http.Request in a retryablehttp.Request
+// FromRequest wraps an http.Request in a client.Request
 func FromRequest(r *http.Request) (*Request, error) {
 	req := Request{
 		Request: r,
@@ -119,7 +119,7 @@ func FromRequest(r *http.Request) (*Request, error) {
 	return &req, nil
 }
 
-// FromRequestWithTrace wraps an http.Request in a retryablehttp.Request with trace enabled
+// FromRequestWithTrace wraps an http.Request in a client.Request with trace enabled
 func FromRequestWithTrace(r *http.Request) (*Request, error) {
 	trace := &httptrace.ClientTrace{
 		GotConn: func(connInfo httptrace.GotConnInfo) {
