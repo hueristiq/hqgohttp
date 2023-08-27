@@ -103,7 +103,7 @@ func FullJitterBackoff() func(min, max time.Duration, attemptNum int, resp *http
 }
 
 // ExponentialJitterBackoff provides a callback for Client.Backoff which will
-// perform en exponential backoff based on the attempt number and with jitter to
+// perform an exponential backoff based on the attempt number and with jitter to
 // prevent a thundering herd.
 //
 // min and max here are *not* absolute values. The number to be multiplied by
