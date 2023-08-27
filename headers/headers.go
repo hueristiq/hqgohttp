@@ -1,21 +1,24 @@
+// This is a Go package that list HTTP header field names as constants.
+//
+// HTTP header fields are components of the header section of request
+// and response messages in the HTTP protocol, which is the
+// foundation of data communication for the World Wide Web.
 package headers
 
 const (
-	// Authentication
+	// Authentication - These header fields are related to authentication and authorization.
 	Authorization      = "Authorization"
 	ProxyAuthenticate  = "Proxy-Authenticate"
 	ProxyAuthorization = "Proxy-Authorization"
 	WWWAuthenticate    = "WWW-Authenticate"
-
-	// Caching
+	// Caching - These header fields are related to caching policy.
 	Age           = "Age"
 	CacheControl  = "Cache-Control"
 	ClearSiteData = "Clear-Site-Data"
 	Expires       = "Expires"
 	Pragma        = "Pragma"
 	Warning       = "Warning"
-
-	// Client hints
+	// Client hints - These header fields are used for content adaptation.
 	AcceptCH         = "Accept-CH"
 	AcceptCHLifetime = "Accept-CH-Lifetime"
 	ContentDPR       = "Content-DPR"
@@ -24,8 +27,7 @@ const (
 	SaveData         = "Save-Data"
 	ViewportWidth    = "Viewport-Width"
 	Width            = "Width"
-
-	// Conditionals
+	// Conditionals - These header fields are used for conditional requests.
 	ETag              = "ETag"
 	IfMatch           = "If-Match"
 	IfModifiedSince   = "If-Modified-Since"
@@ -33,25 +35,21 @@ const (
 	IfUnmodifiedSince = "If-Unmodified-Since"
 	LastModified      = "Last-Modified"
 	Vary              = "Vary"
-
-	// Connection management
+	// Connection management - These header fields are related to connection management.
 	Connection      = "Connection"
 	KeepAlive       = "Keep-Alive"
 	ProxyConnection = "Proxy-Connection"
-
-	// Content negotiation
+	// Content negotiation - These header fields are used for content negotiation.
 	Accept         = "Accept"
 	AcceptCharset  = "Accept-Charset"
 	AcceptEncoding = "Accept-Encoding"
 	AcceptLanguage = "Accept-Language"
-
-	// Controls
+	// Controls - These header fields are related to general controls.
 	Cookie      = "Cookie"
 	Expect      = "Expect"
 	MaxForwards = "Max-Forwards"
 	SetCookie   = "Set-Cookie"
-
-	// CORS
+	// CORS (Cross-Origin Resource Sharing) - These header fields are related to CORS.
 	AccessControlAllowCredentials = "Access-Control-Allow-Credentials"
 	AccessControlAllowHeaders     = "Access-Control-Allow-Headers"
 	AccessControlAllowMethods     = "Access-Control-Allow-Methods"
@@ -63,49 +61,40 @@ const (
 	Origin                        = "Origin"
 	TimingAllowOrigin             = "Timing-Allow-Origin"
 	XPermittedCrossDomainPolicies = "X-Permitted-Cross-Domain-Policies"
-
-	// Do Not Track
+	// Do Not Track - These header fields are related to user tracking preference.
 	DNT = "DNT"
 	Tk  = "Tk"
-
-	// Downloads
+	// Downloads - This header field is related to content disposition.
 	ContentDisposition = "Content-Disposition"
-
-	// Message body information
+	// Message body information - These header fields are related to the message body.
 	ContentEncoding = "Content-Encoding"
 	ContentLanguage = "Content-Language"
 	ContentLength   = "Content-Length"
 	ContentLocation = "Content-Location"
 	ContentType     = "Content-Type"
-
-	// Proxies
+	// Proxies - These header fields are related to proxy servers.
 	Forwarded       = "Forwarded"
 	Via             = "Via"
 	XForwardedFor   = "X-Forwarded-For"
 	XForwardedHost  = "X-Forwarded-Host"
 	XForwardedProto = "X-Forwarded-Proto"
-
-	// Redirects
+	// Redirects - This header field is related to HTTP redirection.
 	Location = "Location"
-
-	// Request context
+	// Request context - These header fields are related to the request context.
 	From           = "From"
 	Host           = "Host"
 	Referer        = "Referer"
 	ReferrerPolicy = "Referrer-Policy"
 	UserAgent      = "User-Agent"
-
-	// Response context
+	// Response context - These header fields are related to the response context.
 	Allow  = "Allow"
 	Server = "Server"
-
-	// Range requests
+	// Range requests - These header fields are related to partial requests and responses.
 	AcceptRanges = "Accept-Ranges"
 	ContentRange = "Content-Range"
 	IfRange      = "If-Range"
 	Range        = "Range"
-
-	// Security
+	// Security - These header fields are related to security.
 	ContentSecurityPolicy           = "Content-Security-Policy"
 	ContentSecurityPolicyReportOnly = "Content-Security-Policy-Report-Only"
 	CrossOriginResourcePolicy       = "Cross-Origin-Resource-Policy"
@@ -120,27 +109,23 @@ const (
 	XFrameOptions                   = "X-Frame-Options"
 	XPoweredBy                      = "X-Powered-By"
 	XXSSProtection                  = "X-XSS-Protection"
-
-	// Server-sent event
+	// Server-sent event - These header fields are related to server-sent events.
 	LastEventID = "Last-Event-ID"
 	NEL         = "NEL"
 	PingFrom    = "Ping-From"
 	PingTo      = "Ping-To"
 	ReportTo    = "Report-To"
-
-	// Transfer coding
+	// Transfer coding - These header fields are related to transfer coding.
 	TE               = "TE"
 	Trailer          = "Trailer"
 	TransferEncoding = "Transfer-Encoding"
-
-	// WebSockets
+	// WebSockets -These header fields are related to the WebSocket protocol.
 	SecWebSocketAccept     = "Sec-WebSocket-Accept"
 	SecWebSocketExtensions = "Sec-WebSocket-Extensions"
 	SecWebSocketKey        = "Sec-WebSocket-Key"
 	SecWebSocketProtocol   = "Sec-WebSocket-Protocol"
 	SecWebSocketVersion    = "Sec-WebSocket-Version"
-
-	// Other
+	// Other -These header fields do not fall into the above categories.
 	AcceptPatch         = "Accept-Patch"
 	AcceptPushPolicy    = "Accept-Push-Policy"
 	AcceptSignature     = "Accept-Signature"
