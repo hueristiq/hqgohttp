@@ -86,13 +86,6 @@ const (
 // consumers.
 type RequestLogHook func(*http.Request, int)
 
-// ResponseLogHook is like RequestLogHook, but allows running a function
-// on each HTTP response. This function will be invoked at the end of
-// every HTTP request executed, regardless of whether a subsequent retry
-// needs to be performed or not. If the response body is read or closed
-// from this method, this will affect the response returned from Do().
-type ResponseLogHook func(*http.Response)
-
 // ErrorHandler is called if retries are expired, containing the last status
 // from the http library. If not specified, default behavior for the library is
 // to close the body and return an error indicating how many tries were
