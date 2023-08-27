@@ -13,12 +13,6 @@ HTTP Methods:
 * **OPTIONS**: The OPTIONS method is used to describe the communication options for the target resource.
 * **TRACE**: The TRACE method performs a message loop-back test along the path to the target resource.
 
-## Resource
-
-* [Usage](#usage)
-* [Contributing](#contributing)
-* [Licensing](#licensing)
-
 ## Usage
 
 To use this package in your Go application, you need to import it like any other Go package.

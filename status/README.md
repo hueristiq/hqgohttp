@@ -9,12 +9,6 @@ Categories of the HTTP Status Codes:
 * **Client error responses (400–499)**: These are used to indicate that there was a problem with the request made by the client.
 * **Server error responses (500–599)**: These indicate that the server encountered a problem and was unable to complete the request.
 
-## Resource
-
-* [Usage](#usage)
-* [Contributing](#contributing)
-* [Licensing](#licensing)
-
 ## Usage
 
 To use this package in your Go application, you need to import it like any other Go package.
