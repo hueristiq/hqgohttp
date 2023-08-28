@@ -136,6 +136,7 @@ const (
 	Link                = "Link"
 	PushPolicy          = "Push-Policy"
 	RetryAfter          = "Retry-After"
+	XRatelimitRemaining = "X-Ratelimit-Remaining"
 	ServerTiming        = "Server-Timing"
 	Signature           = "Signature"
 	SignedHeaders       = "Signed-Headers"
