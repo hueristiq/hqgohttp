@@ -1,5 +1,7 @@
-// This file contains code focusing on the construction and configuration of an HTTP client that provides functionality like automatic retries, backoff strategies, and logging hooks.
-package client
+package hqgohttp
+
+// This file contains code focusing on the construction and configuration of an HTTP client that provides
+// functionality like automatic retries, backoff strategies, and logging hooks.
 
 import (
 	"context"
@@ -294,6 +296,7 @@ func New(options *Options) (client *Client, err error) {
 	if options.Timeout > time.Second*15 &&
 		options.RetryMax > 1 &&
 		!options.NoAdjustTimeout {
+
 		client.HTTPClient.Timeout = time.Duration(options.Timeout.Seconds()*0.3) * time.Second
 	}
 

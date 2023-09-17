@@ -1,5 +1,6 @@
+package hqgohttp
+
 // This file contains set of Go functions that focuses on handling HTTP request retries based on specific conditions.
-package client
 
 import (
 	"context"

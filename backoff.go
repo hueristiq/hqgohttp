@@ -1,5 +1,8 @@
-// This file contains set of Go functions that handle backoff strategies for HTTP clients. These strategies are typically used when a client makes a request to a server and, in case of failure, determines how long to wait before trying again.
-package client
+package hqgohttp
+
+// This file contains set of Go functions that handle backoff strategies for HTTP clients.
+// These strategies are typically used when a client makes a request to a server and,
+// in case of failure, determines how long to wait before trying again.
 
 import (
 	"crypto/rand"

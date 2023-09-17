@@ -1,5 +1,6 @@
+package hqgohttp
+
 // This file contains utility functions to create HTTP clients and transports.
-package client
 
 import (
 	"net"

@@ -1,5 +1,8 @@
-// This Go code defines a structure Options to represent configuration options for an HTTP client, and two variables, DefaultOptionsSpraying and DefaultOptionsSingle, which are instances of Options with default values for two different scenarios.
-package client
+package hqgohttp
+
+// This Go code defines a structure Options to represent configuration options for an HTTP client,
+// and two variables, DefaultOptionsSpraying and DefaultOptionsSingle, which are instances of
+// Options with default values for two different scenarios.
 
 import (
 	"net/http"

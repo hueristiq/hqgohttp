@@ -1,4 +1,4 @@
-package client
+package hqgohttp
 
 import (
 	"bytes"
