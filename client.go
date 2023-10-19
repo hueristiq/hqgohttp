@@ -14,6 +14,7 @@ import (
 	"time"
 
 	dac "github.com/Mzack9999/go-http-digest-auth-client"
+	"github.com/hueristiq/hqgohttp/methods"
 	"golang.org/x/net/http2"
 )
 
@@ -215,7 +216,7 @@ func (c *Client) closeIdleConnections() {
 
 // Get is a convenience helper for doing simple GET requests.
 func (c *Client) Get(URL string) (*http.Response, error) {
-	req, err := NewRequest(http.MethodGet, URL, nil)
+	req, err := NewRequest(methods.Get, URL, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -225,7 +226,7 @@ func (c *Client) Get(URL string) (*http.Response, error) {
 
 // Head is a convenience method for doing simple HEAD requests.
 func (c *Client) Head(URL string) (*http.Response, error) {
-	req, err := NewRequest(http.MethodHead, URL, nil)
+	req, err := NewRequest(methods.Head, URL, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -235,7 +236,7 @@ func (c *Client) Head(URL string) (*http.Response, error) {
 
 // Post is a convenience method for doing simple POST requests.
 func (c *Client) Post(URL, bodyType string, body interface{}) (*http.Response, error) {
-	req, err := NewRequest(http.MethodPost, URL, body)
+	req, err := NewRequest(methods.Post, URL, body)
 	if err != nil {
 		return nil, err
 	}
