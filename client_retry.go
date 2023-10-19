@@ -56,27 +56,33 @@ func CheckRecoverableErrors(ctx context.Context, _ *http.Response, err error) (b
 		return false, ctx.Err()
 	}
 
-	if err != nil {
-		if v, ok := err.(*url.Error); ok {
-			// Don't retry if the error was due to too many redirects.
-			if redirectsErrorRegex.MatchString(v.Error()) {
-				return false, nil
-			}
-
-			// Don't retry if the error was due to an invalid protocol scheme.
-			if schemeErrorRegex.MatchString(v.Error()) {
-				return false, nil
-			}
-
-			// Don't retry if the error was due to TLS cert verification failure.
-			if _, ok := v.Err.(x509.UnknownAuthorityError); ok {
-				return false, nil
-			}
-		}
-
-		// The error is likely recoverable so retry.
-		return true, nil
+	if err == nil {
+		return false, nil
 	}
 
-	return false, nil
+	if urlErr, ok := err.(*url.Error); ok {
+		// Don't retry if the error was due to too many redirects.
+		// Don't retry if the error was due to an invalid protocol scheme.
+		// Don't retry if the error was due to TLS cert verification failure.
+		if isRedirectError(urlErr) || isSchemeError(urlErr) || isUnknownAuthorityError(urlErr) {
+			return false, nil
+		}
+	}
+
+	// The error is likely recoverable so retry.
+	return true, nil
+}
+
+func isRedirectError(err *url.Error) bool {
+	return redirectsErrorRegex.MatchString(err.Error())
+}
+
+func isSchemeError(err *url.Error) bool {
+	return schemeErrorRegex.MatchString(err.Error())
+}
+
+func isUnknownAuthorityError(err *url.Error) bool {
+	_, ok := err.Err.(x509.UnknownAuthorityError)
+
+	return ok
 }
