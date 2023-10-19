@@ -6,8 +6,28 @@ import (
 	"fmt"
 	"net/http"
 	"net/http/httptrace"
+	"net/http/httputil"
 	"os"
 )
+
+// ErrorHandler is called if retries are expired, containing the last status
+// from the http library. If not specified, default behavior for the library is
+// to close the body and return an error indicating how many tries were
+// attempted. If overriding this, be sure to close the body if needed.
+type ErrorHandler func(resp *http.Response, err error, numTries int) (*http.Response, error)
+
+// RequestLogHook allows a function to run before each retry. The HTTP
+// request which will be made, and the retry number (0 for the initial
+// request) are available to users. The internal logger is exposed to
+// consumers.
+type RequestLogHook func(*http.Request, int)
+
+// ResponseLogHook is like RequestLogHook, but allows running a function
+// on each HTTP response. This function will be invoked at the end of
+// every HTTP request executed, regardless of whether a subsequent retry
+// needs to be performed or not. If the response body is read or closed
+// from this method, this will affect the response returned from Do().
+type ResponseLogHook func(*http.Response)
 
 // Request wraps the metadata needed to create HTTP requests.
 // Request is not threadsafe. A request cannot be used by multiple goroutines
@@ -52,6 +72,54 @@ func (r *Request) BodyBytes() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
+// Clones and returns new Request
+func (r *Request) Clone(ctx context.Context) *Request {
+	req := r.Request.Clone(ctx)
+
+	var auth *Auth
+
+	if r.hasAuth() {
+		auth = &Auth{
+			Type:     r.Auth.Type,
+			Username: r.Auth.Username,
+			Password: r.Auth.Password,
+		}
+	}
+
+	return &Request{
+		Request: req,
+		Metrics: Metrics{}, // Metrics shouldn't be cloned
+		Auth:    auth,
+	}
+}
+
+// Dump returns request dump in bytes
+func (r *Request) Dump() ([]byte, error) {
+	resplen := int64(0)
+	dumpbody := true
+
+	clone := r.Clone(context.TODO())
+	if clone.Body != nil {
+		resplen, _ = getLength(clone.Body)
+	}
+
+	if resplen == 0 {
+		dumpbody = false
+		clone.ContentLength = 0
+		clone.Body = nil
+		delete(clone.Header, "Content-length")
+	} else {
+		clone.ContentLength = resplen
+	}
+
+	dumpBytes, err := httputil.DumpRequestOut(clone.Request, dumpbody)
+	if err != nil {
+		return nil, err
+	}
+
+	return dumpBytes, nil
+}
+
 // hasAuth checks if request has any username/password
 func (r *Request) hasAuth() bool {
 	return r.Auth != nil
@@ -79,18 +147,6 @@ type AuthType uint8
 const (
 	DigestAuth AuthType = iota
 )
-
-// RequestLogHook allows a function to run before each retry. The HTTP
-// request which will be made, and the retry number (0 for the initial
-// request) are available to users. The internal logger is exposed to
-// consumers.
-type RequestLogHook func(*http.Request, int)
-
-// ErrorHandler is called if retries are expired, containing the last status
-// from the http library. If not specified, default behavior for the library is
-// to close the body and return an error indicating how many tries were
-// attempted. If overriding this, be sure to close the body if needed.
-type ErrorHandler func(resp *http.Response, err error, numTries int) (*http.Response, error)
 
 // FromRequest wraps an http.Request in a client.Request
 func FromRequest(r *http.Request) (*Request, error) {
