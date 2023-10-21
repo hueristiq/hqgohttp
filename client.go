@@ -304,7 +304,12 @@ func New(options *Options) (client *Client, err error) {
 
 	client.HTTP2Client = DefaultHTTPClient()
 
-	if err = http2.ConfigureTransport(client.HTTP2Client.Transport.(*http.Transport)); err != nil {
+	HTTP2ClientTransport, ok := client.HTTP2Client.Transport.(*http.Transport)
+	if !ok {
+		return
+	}
+
+	if err = http2.ConfigureTransport(HTTP2ClientTransport); err != nil {
 		return
 	}
 

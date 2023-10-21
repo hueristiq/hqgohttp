@@ -5,6 +5,7 @@ package hqgohttp
 import (
 	"context"
 	"crypto/x509"
+	"errors"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -60,7 +61,9 @@ func CheckRecoverableErrors(ctx context.Context, _ *http.Response, err error) (b
 		return false, nil
 	}
 
-	if urlErr, ok := err.(*url.Error); ok {
+	var urlErr *url.Error
+
+	if errors.As(err, &urlErr) {
 		// Don't retry if the error was due to too many redirects.
 		// Don't retry if the error was due to an invalid protocol scheme.
 		// Don't retry if the error was due to TLS cert verification failure.
@@ -82,7 +85,7 @@ func isSchemeError(err *url.Error) bool {
 }
 
 func isUnknownAuthorityError(err *url.Error) bool {
-	_, ok := err.Err.(x509.UnknownAuthorityError)
+	var authorityErr x509.UnknownAuthorityError
 
-	return ok
+	return errors.As(err.Err, &authorityErr)
 }
