@@ -107,6 +107,7 @@ func (r *Request) Dump() ([]byte, error) {
 		dumpbody = false
 		clone.ContentLength = 0
 		clone.Body = nil
+
 		delete(clone.Header, "Content-length")
 	} else {
 		clone.ContentLength = resplen
